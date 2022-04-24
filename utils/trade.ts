@@ -1,4 +1,5 @@
 import { Currency } from '../constants/currency';
+import { toPrecision } from './numberHelpers';
 
 class Trade {
   private reserve = {
@@ -56,8 +57,8 @@ class Trade {
     );
 
     if (result !== 0) {
-      this.reserve[from] += amount;
-      this.reserve[to] -= result;
+      this.reserve[from] = toPrecision(this.reserve[from] + amount);
+      this.reserve[to] = toPrecision(this.reserve[to] - result);
     }
 
     return result;

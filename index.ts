@@ -37,7 +37,14 @@ function handleExchangeCurrency(amount: number, currency: Currency) {
   }
 }
 
-async function start() {
+function logReserver() {
+  console.log('===========================');
+  console.log('The current reserves are:');
+  console.log(JSON.stringify(trade.getReserve(), null, 2));
+  console.log('===========================');
+}
+
+async function startQuestion() {
   const answers = await inquirer.prompt<Answers>(promptSpec);
   const { selectedFunction, currency, amount = 0 } = answers;
 
@@ -55,12 +62,13 @@ async function start() {
       process.exit();
   }
 
-  console.log('===========================');
-  console.log('The current reserves are:');
-  console.log(JSON.stringify(trade.getReserve(), null, 2));
-  console.log('===========================');
+  logReserver();
+  startQuestion();
+}
 
-  start();
+async function start() {
+  logReserver();
+  startQuestion();
 }
 
 start();
