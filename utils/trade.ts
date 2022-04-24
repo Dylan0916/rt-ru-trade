@@ -55,8 +55,10 @@ class Trade {
       to
     );
 
-    this.reserve[from] += amount;
-    this.reserve[to] -= result;
+    if (result !== 0) {
+      this.reserve[from] += amount;
+      this.reserve[to] -= result;
+    }
 
     return result;
   };

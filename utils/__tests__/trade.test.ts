@@ -119,5 +119,15 @@ describe('trade', () => {
         );
       });
     });
+
+    it('should do nothing if nothing can be changed', () => {
+      trade.setReserve(50, Currency.TWD);
+      trade.setReserve(200000, Currency.USD);
+
+      const previous = trade.getReserve();
+
+      expect(trade.exchange(2000, Currency.USD, Currency.TWD)).toBe(0);
+      expect(trade.getReserve()).toBe(previous);
+    });
   });
 });
